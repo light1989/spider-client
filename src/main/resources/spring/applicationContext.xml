@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	">
+
+	<!-- 每次请求生成一个新的 -->
+	<bean id="singleThreadExecutor" scope="prototype"
+        class="java.util.concurrent.Executors"
+        factory-method="newSingleThreadExecutor"/>
+	
+	<!-- 执行器map -->
+	<bean id="executorMap" class="java.util.HashMap">
+	  <constructor-arg>
+	   <map>
+	    <entry key="MG98LIST" value-ref="singleThreadExecutor" />
+	   </map>
+	  </constructor-arg>
+	</bean>
+	 
+	<bean id="eachCenterThreadPolls" scope="singleton"
+		class="com.zs.light.spider.client.scheduler.impl.EachCenterThreadPolls">
+		
+		<property name="executorMap" ref="executorMap" />
+
+	</bean>
+	
+</beans>
