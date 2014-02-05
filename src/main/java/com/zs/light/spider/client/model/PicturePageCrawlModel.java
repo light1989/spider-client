@@ -4,16 +4,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zs.light.spider.client.downloadUtil.HtmlTask;
 import com.zs.light.spider.client.downloadUtil.PictureTask;
-import com.zs.light.spider.core.model.AbstractResult;
-import com.zs.light.spider.core.model.AbstractUrl;
 import com.zs.light.spider.core.model.PicturePageResult;
 import com.zs.light.spider.core.model.PicturePageUrl;
 
 public class PicturePageCrawlModel extends AbstractCrawlModel{
 
+	private static Logger logger = LoggerFactory.getLogger(PicturePageCrawlModel.class);
 	/**
 	 * 构造函数
 	 * @param url

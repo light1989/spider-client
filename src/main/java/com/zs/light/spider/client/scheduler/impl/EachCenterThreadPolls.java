@@ -1,21 +1,26 @@
 package com.zs.light.spider.client.scheduler.impl;
 
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 
 import javax.annotation.Resource;
 
-import com.zs.light.spider.client.downloadUtil.PictureTask;
-import com.zs.light.spider.client.scheduler.ACenterThreadPolls;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.zs.light.spider.client.model.ICrawlModel;
+import com.zs.light.spider.client.model.PicturePageCrawlModel;
+import com.zs.light.spider.client.scheduler.AbstractCenterThreadPolls;
 import com.zs.light.spider.core.model.AbstractUrl;
 
-public class EachCenterThreadPolls extends ACenterThreadPolls {
+public class EachCenterThreadPolls extends AbstractCenterThreadPolls {
+	
+	private static Logger logger = LoggerFactory.getLogger(EachCenterThreadPolls.class);
 	
 	/**
 	 * 不同的线程池，每个池负责一个类型的url，可以确保线程池被充分利用，并且不会出现网站被封现象。
 	 * 执行器需要配置
+	 * 不同的类型配置不同的执行器
 	 */
 	@Resource
 	private Map<String, ExecutorService> executorMap;
@@ -28,10 +33,10 @@ public class EachCenterThreadPolls extends ACenterThreadPolls {
 		return executorMap;
 	}
 
-	public boolean addUrl(AbstractUrl url) {
-//		ExecutorService executor = executorMap.get(url.getType());
-//		PictureTask pictureTask = new PictureTask(url);
-//		executor.execute(pictureTask);
+	public boolean addModel(ICrawlModel model) {
+		ExecutorService executor = executorMap.get(model.getType());
+		executor.execute(model);
+		logger.info("new model task added...");
 		return true;
 	}
 }

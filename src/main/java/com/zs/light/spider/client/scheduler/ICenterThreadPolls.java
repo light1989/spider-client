@@ -1,6 +1,6 @@
 package com.zs.light.spider.client.scheduler;
 
-import com.zs.light.spider.core.model.AbstractUrl;
+import com.zs.light.spider.client.model.ICrawlModel;
 
 public interface ICenterThreadPolls {
 	/**
@@ -9,7 +9,7 @@ public interface ICenterThreadPolls {
 	//public boolean addType();
 	
 	/**
-	 * 添加一个URL
+	 * 添加一个任务 可运行的模型
 	 */
-	public boolean addUrl(AbstractUrl url);
+	public boolean addModel(ICrawlModel model);
 }

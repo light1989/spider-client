@@ -13,4 +13,6 @@ public interface ICrawlModel extends Runnable{
 	
 	// 核心方法  后续方法在  此之后 抽象类实现该方法，具体子类调用抽象类方法
 	public boolean crawl();
+	
+	public String getType();
 }

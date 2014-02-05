@@ -6,7 +6,7 @@ package com.zs.light.spider.client.scheduler;
  * @author yfzhangshuo
  *
  */
-public abstract class ACenterThreadPolls implements ICenterThreadPolls {
+public abstract class AbstractCenterThreadPolls implements ICenterThreadPolls {
 	
 
 }

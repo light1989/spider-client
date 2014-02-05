@@ -23,5 +23,12 @@ public abstract class AbstractCrawlModel implements ICrawlModel{
 		this.url = url;
 		this.result = result;
 	}
+	
+	/**
+	 * 任务模型的类型即为url的类型
+	 */
+	public String getType(){
+		return url.getType();
+	}
 
 }
