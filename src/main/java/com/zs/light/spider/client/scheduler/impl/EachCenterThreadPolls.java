@@ -35,6 +35,7 @@ public class EachCenterThreadPolls extends AbstractCenterThreadPolls {
 
 	public boolean addModel(ICrawlModel model) {
 		ExecutorService executor = executorMap.get(model.getType());
+		model.setCenterThreadPolls(this);
 		executor.execute(model);
 		logger.info("new model task added...");
 		return true;

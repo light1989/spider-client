@@ -15,7 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class PictureTask {
 
 	
-	public static boolean download(String url, String filePathName) {
+	public static boolean download(String url, String filePath, String fileName) {
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		try{
@@ -28,8 +28,14 @@ public class PictureTask {
 			System.out.println("executing request " + httpget.getURI());
 			
 			HttpResponse response = httpclient.execute(httpget);
+
+			File path = new File(filePath);
+			if(!path.exists()){
+				path.mkdir();
+			}
 			
-			File storeFile = new File(filePathName);
+			File storeFile = new File(filePath + fileName);
+			
 			FileOutputStream output = new FileOutputStream(storeFile);
 
 			// 得到网络资源的字节数组,并写入文件

@@ -3,9 +3,9 @@ package com.zs.light.spider.client.start;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.zs.light.spider.client.model.PicturePageCrawlModel;
 import com.zs.light.spider.client.scheduler.impl.EachCenterThreadPolls;
-import com.zs.light.spider.core.model.AbstractUrl;
-import com.zs.light.spider.core.model.PictureUrl;
+import com.zs.light.spider.core.model.PicturePageUrl;
 
 public class Start {
 	
@@ -14,21 +14,20 @@ public class Start {
 		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring/applicationContext*.xml");
 		
+		/**
+		 * 线程池会阻止jvm退出
+		 */
 		EachCenterThreadPolls ectp = (EachCenterThreadPolls) ctx.getBean("eachCenterThreadPolls");
 		
-		PictureUrl url = new PictureUrl();
+		PicturePageUrl url = new PicturePageUrl();
+		url.setType("MG_PIC_PAGE");
+		url.setAddress("http://meigui98.com/thread-49622-1-5.html");
+		url.setFilePath("E:/XMPZR/MG98/");
 		
-		url.setType("MG98PIC");
-		url.setUrl("http://meigui98.com/attachments/forumid_37/131226174275be27c976a71e0c.jpg.thumb.jpg");
+		PicturePageCrawlModel ppcm = new PicturePageCrawlModel(url, null);
 		
-		ectp.addUrl(url);
-		
-		try {
-			Thread.sleep(1000 * 60 * 60);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ectp.addModel(ppcm);
+
 		System.out.println(ectp);
 	}
 }

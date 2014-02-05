@@ -11,7 +11,7 @@ public class HtmlTaskTest {
 		PicturePageUrl url = new PicturePageUrl();
 //		url.setType("MG98LIST");
 		// url.setUrl("http://meigui98.com/forum-37-1.html");
-		url.setUrl("http://meigui98.com/thread-53616-1-3.html");
+		url.setAddress("http://meigui98.com/thread-53616-1-3.html");
 		
 //		HtmlTask ht = new HtmlTask(url);
 //		ht.download();

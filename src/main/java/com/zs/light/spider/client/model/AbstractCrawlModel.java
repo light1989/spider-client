@@ -1,34 +1,22 @@
 package com.zs.light.spider.client.model;
 
-import com.zs.light.spider.core.model.PicturePageResult;
-import com.zs.light.spider.core.model.PicturePageUrl;
-
+import com.zs.light.spider.client.scheduler.ICenterThreadPolls;
 
 public abstract class AbstractCrawlModel implements ICrawlModel{
 	
 	/**
-	 * url
+	 * 线程池对象 由于先线程池用添加子任务
 	 */
-	protected PicturePageUrl url;
+	protected ICenterThreadPolls centerThreadPolls;
 	
-	/**
-	 * 返回
-	 */
-	protected PicturePageResult result;
-	
-	/**
-	 * 构造函数
-	 */
-	public AbstractCrawlModel(PicturePageUrl url, PicturePageResult result){
-		this.url = url;
-		this.result = result;
-	}
-	
-	/**
-	 * 任务模型的类型即为url的类型
-	 */
-	public String getType(){
-		return url.getType();
+	public void run() {
+		/**
+		 * 可以线程池启动，也可以直接启动，如果需要线程池启动，必须要有TYPE
+		 */
+		this.crawl();
 	}
 
+	public void setCenterThreadPolls(ICenterThreadPolls centerThreadPolls) {
+		this.centerThreadPolls = centerThreadPolls;
+	}
 }
