@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+        
+<sqlMap namespace="mg98">
+
+	<!-- 查询一个url是否存在 -->
+	<select id="findByaddress" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(1) from mg98_pics where address = #address#
+	</select>
+
+    <!-- 插入一个图片信息 -->
+    <insert id="insertPic" parameterClass="com.zs.light.spider.client.domain.MgPic" >
+    	insert into mg98_pics(address, filename, status, update_time)
+		values(#address#, #filename#, #status#, now())
+    </insert>
+    
+    <!-- 根据 address 修改图片状态 -->
+    <update id="updatePicStatus" parameterClass="com.zs.light.spider.client.domain.MgPic">
+    	update mg98_pics
+    	set status = #status#
+    	where address = #address#
+    </update>
+    
+    <!-- 查询未处理的页面任务  -->
+    <select id="findTodoUrl" resultClass="com.zs.light.spider.core.model.Url" >
+    	select 
+    	address as address,
+    	type as type
+    	from mg98_urls
+    	where status = 'TODO'
+    </select>
+    
+    <!-- 根据 address 修改状态 -->
+    <update id="updateUrlStatus" parameterClass="com.zs.light.spider.core.model.Url">
+    	update mg98_urls
+    	set status = #status#
+    	where address = #address#
+    </update>
+    
+</sqlMap>
