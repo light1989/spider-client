@@ -9,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zs.light.spider.client.model.ICrawlModel;
-import com.zs.light.spider.client.model.PicturePageCrawlModel;
 import com.zs.light.spider.client.scheduler.AbstractCenterThreadPolls;
-import com.zs.light.spider.core.model.AbstractUrl;
 
 public class EachCenterThreadPolls extends AbstractCenterThreadPolls {
 	

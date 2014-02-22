@@ -5,6 +5,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
 
@@ -13,6 +14,9 @@ public class HtmlTask{
 	public static String download(String url) {
 		
 		HttpClient httpclient = new DefaultHttpClient();
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 20000);//连接时间
+		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);//数据传输时间
+
 		try{
 			
 			HttpGet httpget = new HttpGet(url);

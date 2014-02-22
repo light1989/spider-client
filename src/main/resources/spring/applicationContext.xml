@@ -18,35 +18,10 @@
 	<context:annotation-config />
 	<!-- 自动扫描路径下所有类 -->
 	<context:component-scan base-package="com.zs.light" />
-
-	<!-- 每次请求生成一个新的  串行线程池 -->
-	<bean id="singleThreadExecutor" scope="prototype"
-        class="java.util.concurrent.Executors"
-        factory-method="newSingleThreadExecutor"/>
 	
-	<!-- 图片下载 10个线程  -->
-	<bean id="fixedThreadPool" scope="prototype"
-        class="java.util.concurrent.Executors"
-        factory-method="newFixedThreadPool">
-        <!-- 默认10个线程池 -->
-        <constructor-arg value="10" />
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:sqlmap-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
-	
-	<!-- 执行器map -->
-	<bean id="executorMap" class="java.util.HashMap">
-	  <constructor-arg>
-	   <map>
-	    <entry key="MG_PIC_PAGE" value-ref="singleThreadExecutor" />
-	    <entry key="MG_PIC" value-ref="fixedThreadPool" />
-	   </map>
-	  </constructor-arg>
-	</bean>
-	 
-	<bean id="eachCenterThreadPolls" scope="singleton"
-		class="com.zs.light.spider.client.scheduler.impl.EachCenterThreadPolls">
-		
-		<property name="executorMap" ref="executorMap" />
-
-	</bean>
 	
 </beans>

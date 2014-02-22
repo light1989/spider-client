@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
 
 
 public class PictureTask {
@@ -18,6 +19,8 @@ public class PictureTask {
 	public static boolean download(String url, String filePath, String fileName) {
 		
 		HttpClient httpclient = new DefaultHttpClient();
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 20000);//连接时间
+		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 120000);//数据传输时间
 		try{
 			
 			HttpGet httpget = new HttpGet(url);
@@ -27,7 +30,7 @@ public class PictureTask {
 			// Execute HTTP request
 			System.out.println("executing request " + httpget.getURI());
 			
-			HttpResponse response = httpclient.execute(httpget);
+			
 
 			File path = new File(filePath);
 			if(!path.exists()){
@@ -35,6 +38,11 @@ public class PictureTask {
 			}
 			
 			File storeFile = new File(filePath + fileName);
+			if(storeFile.exists()){
+				return true;
+			}
+			
+			HttpResponse response = httpclient.execute(httpget);
 			
 			FileOutputStream output = new FileOutputStream(storeFile);
 
